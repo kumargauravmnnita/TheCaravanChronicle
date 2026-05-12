@@ -12,7 +12,7 @@ const StatCard = ({ label, value, icon, color = "red", sub }) => {
       className="card flex items-start gap-4 hover:shadow-card-hover 
                     transition-shadow duration-200"
     >
-      {}
+      {/* Icon box */}
       <div
         className={`p-2 md:p-3 rounded-lg text-xl md:text-2xl 
                        flex-shrink-0 ${colors[color]}`}
@@ -20,7 +20,7 @@ const StatCard = ({ label, value, icon, color = "red", sub }) => {
         {icon}
       </div>
 
-      {}
+      {/* Text */}
       <div className="min-w-0">
         <p className="text-xs md:text-sm text-gray-500 font-medium truncate">
           {label}
