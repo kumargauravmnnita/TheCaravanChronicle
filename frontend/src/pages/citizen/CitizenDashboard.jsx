@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { FiPlusCircle, FiList, FiClock, FiCheckCircle } from "react-icons/fi";
 import {
-  FiClipboard,
-  FiAlertCircle,
-  FiLoader,
+  FiPlusCircle,
+  FiInbox,
+  FiList,
+  FiClock,
   FiCheckCircle,
 } from "react-icons/fi";
+import { FiClipboard, FiAlertCircle, FiLoader } from "react-icons/fi";
 import { getComplaints } from "../../api/complaintAPI";
 import useAuthStore from "../../store/authStore";
 import DashboardLayout from "../../components/layout/DashboardLayout";
