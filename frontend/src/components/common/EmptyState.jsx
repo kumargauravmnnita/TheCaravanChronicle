@@ -1,10 +1,16 @@
+import { FiInbox } from "react-icons/fi";
 const EmptyState = ({ icon, title, message, action }) => {
   return (
     <div
       className="flex flex-col items-center justify-center py-12 md:py-16 
                     text-center px-4"
     >
-      <div className="text-5xl md:text-6xl mb-4">{icon || "🎪"}</div>
+      <div
+        className="flex justify-center items-center w-16 h-16 md:w-20 md:h-20 
+                rounded-full bg-gray-100 mb-4"
+      >
+        {icon || <FiInbox className="w-8 h-8 text-gray-400" />}
+      </div>
       <h3 className="text-base md:text-lg font-circus text-gray-700 mb-2">
         {title}
       </h3>

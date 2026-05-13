@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiLogOut, FiUser, FiMenu, FiX } from "react-icons/fi";
 import useAuthStore from "../../store/authStore";
 import toast from "react-hot-toast";
+import CircusLogo from "../common/CircusLogo";
 
 const Navbar = ({ onMenuClick, sidebarOpen }) => {
   const { user, logout } = useAuthStore();
@@ -9,7 +10,7 @@ const Navbar = ({ onMenuClick, sidebarOpen }) => {
 
   const handleLogout = () => {
     logout();
-    toast.success("See you under the big top! 🎪");
+    toast.success("See you under the big top!");
     navigate("/login");
   };
 
@@ -43,7 +44,7 @@ const Navbar = ({ onMenuClick, sidebarOpen }) => {
 
         {/* Logo */}
         <Link to="/dashboard" className="flex items-center gap-2">
-          <span className="text-xl md:text-2xl">🎪</span>
+          <CircusLogo size={36} />
           <div>
             <p
               className="font-circus text-sm md:text-base leading-none 

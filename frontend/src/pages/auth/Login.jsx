@@ -4,6 +4,7 @@ import { loginUser } from "../../api/authAPI";
 import useAuthStore from "../../store/authStore";
 import toast from "react-hot-toast";
 import Spinner from "../../components/common/Spinner";
+import CircusLogo from "../../components/common/CircusLogo";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ const Login = () => {
     try {
       const data = await loginUser({ email, password });
       login(data, data.token);
-      toast.success(`Welcome back, ${data.name}! 🎪`);
+      toast.success(`Welcome back, ${data.name}!`);
       navigate("/dashboard");
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
@@ -40,12 +41,12 @@ const Login = () => {
     >
       <div className="w-full max-w-md">
         {/* Header */}
-        <div className="text-center mb-6 md:mb-8">
-          <div className="text-5xl md:text-6xl mb-3">🎪</div>
-          <h1 className="text-2xl md:text-3xl font-circus text-circus-tent mb-1">
+        <div className="flex flex-col items-center mb-6 md:mb-8">
+          <CircusLogo size={72} />
+          <h1 className="text-2xl md:text-3xl font-circus text-circus-tent mt-3">
             Circus of Wonders
           </h1>
-          <p className="text-gray-500 text-sm">Grounds Manager Portal</p>
+          <p className="text-gray-500 text-sm mt-1">Grounds Manager Portal</p>
         </div>
 
         {/* Card */}
@@ -102,7 +103,7 @@ const Login = () => {
                          justify-center gap-2"
               disabled={loading}
             >
-              {loading ? <Spinner size="sm" /> : "Enter the Circus 🎪"}
+              {loading ? <Spinner size="sm" /> : "Enter the Circus"}
             </button>
           </form>
 

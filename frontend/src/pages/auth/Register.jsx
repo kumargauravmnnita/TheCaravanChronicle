@@ -4,6 +4,7 @@ import { registerUser } from "../../api/authAPI";
 import useAuthStore from "../../store/authStore";
 import toast from "react-hot-toast";
 import Spinner from "../../components/common/Spinner";
+import CircusLogo from "../../components/common/CircusLogo";
 
 const CIRCUS_AREAS = [
   "Main Ring",
@@ -68,12 +69,14 @@ const Register = () => {
                     justify-center px-4 py-8"
     >
       <div className="w-full max-w-md">
-        <div className="text-center mb-6">
-          <div className="text-5xl md:text-6xl mb-3">🎪</div>
-          <h1 className="text-2xl md:text-3xl font-circus text-circus-tent mb-1">
+        <div className="flex flex-col items-center mb-6">
+          <CircusLogo size={72} />
+          <h1 className="text-2xl md:text-3xl font-circus text-circus-tent mt-3">
             Join the Circus
           </h1>
-          <p className="text-gray-500 text-sm">Create your citizen account</p>
+          <p className="text-gray-500 text-sm mt-1">
+            Create your citizen account
+          </p>
         </div>
 
         <div className="card">
@@ -180,7 +183,7 @@ const Register = () => {
                          justify-center gap-2"
               disabled={loading}
             >
-              {loading ? <Spinner size="sm" /> : "Join the Circus 🎪"}
+              {loading ? <Spinner size="sm" /> : "Join the Circus"}
             </button>
           </form>
 

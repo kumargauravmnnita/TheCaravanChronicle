@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { FiStar } from "react-icons/fi";
 import {
   FiHome,
   FiPlusCircle,
@@ -94,10 +95,10 @@ const Sidebar = ({ isOpen, onClose }) => {
         </nav>
 
         {/* Bottom tagline */}
-        <div className="px-6 mt-8">
-          <p className="text-xs text-gray-400 text-center">
-            🎪 The show must go on
-          </p>
+        <div className="flex items-center justify-center gap-1.5">
+          <FiStar className="w-3 h-3 text-circus-gold" />
+          <p className="text-xs text-gray-400">The show must go on</p>
+          <FiStar className="w-3 h-3 text-circus-gold" />
         </div>
       </aside>
     </>

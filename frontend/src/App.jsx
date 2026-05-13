@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import useAuthStore from "./store/authStore";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-
+import CircusLogo from "./components/common/CircusLogo";
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { isAuthenticated, user } = useAuthStore();
 
@@ -41,12 +41,11 @@ const App = () => {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <div
-              className="flex items-center justify-center min-h-screen 
-                            bg-circus-cream"
-            >
+            <div className="flex items-center justify-center min-h-screen bg-circus-cream">
               <div className="text-center">
-                <div className="text-6xl mb-4">🎪</div>
+                <div className="flex justify-center mb-4">
+                  <CircusLogo size={80} />
+                </div>
                 <h1 className="text-2xl font-circus text-circus-tent">
                   Dashboard loading...
                 </h1>
