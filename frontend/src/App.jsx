@@ -1,4 +1,3 @@
-import CircusLogo from "./components/common/CircusLogo";
 import { Routes, Route, Navigate } from "react-router-dom";
 import useAuthStore from "./store/authStore";
 
@@ -10,6 +9,12 @@ import SubmitComplaint from "./pages/citizen/SubmitComplaint";
 import MyComplaints from "./pages/citizen/MyComplaints";
 import ComplaintDetail from "./pages/citizen/ComplaintDetail";
 
+import StaffDashboard from "./pages/staff/StaffDashboard";
+
+import AdminPanel from "./pages/admin/AdminPanel";
+
+import CircusLogo from "./components/common/CircusLogo";
+
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { isAuthenticated, user } = useAuthStore();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
@@ -19,12 +24,19 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   return children;
 };
 
+const SmartDashboard = () => {
+  const { user } = useAuthStore();
+  if (user?.role === "staff") return <StaffDashboard />;
+  if (user?.role === "admin") return <AdminPanel />;
+  return <CitizenDashboard />;
+};
+
 const App = () => {
   const { isAuthenticated } = useAuthStore();
 
   return (
     <Routes>
-      {/* Public routes */}
+      {/* Public */}
       <Route
         path="/login"
         element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
@@ -34,18 +46,18 @@ const App = () => {
         element={isAuthenticated ? <Navigate to="/dashboard" /> : <Register />}
       />
 
-      {/* Root redirect */}
+      {/* Root */}
       <Route
         path="/"
         element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} />}
       />
 
-      {/* Dashboard — all roles */}
+      {/* Smart dashboard — shows different page based on role */}
       <Route
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <CitizenDashboard />
+            <SmartDashboard />
           </ProtectedRoute>
         }
       />
@@ -76,18 +88,61 @@ const App = () => {
         }
       />
 
-      {/* Placeholder routes — we'll build these next */}
+      {/* Staff routes */}
       <Route
         path="/complaints"
         element={
           <ProtectedRoute allowedRoles={["staff", "admin"]}>
-            <div className="flex items-center justify-center min-h-screen bg-circus-cream">
+            <StaffDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Admin routes */}
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminPanel />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Placeholder routes — built in next phase */}
+      <Route
+        path="/reports"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <div
+              className="flex items-center justify-center min-h-screen
+                            bg-circus-cream"
+            >
               <div className="text-center">
                 <div className="flex justify-center mb-4">
                   <CircusLogo size={80} />
                 </div>
                 <h1 className="text-2xl font-circus text-circus-tent">
-                  Staff Dashboard — Coming Next!
+                  Reports — Coming Soon!
+                </h1>
+              </div>
+            </div>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/heatmap"
+        element={
+          <ProtectedRoute allowedRoles={["staff", "admin"]}>
+            <div
+              className="flex items-center justify-center min-h-screen
+                            bg-circus-cream"
+            >
+              <div className="text-center">
+                <div className="flex justify-center mb-4">
+                  <CircusLogo size={80} />
+                </div>
+                <h1 className="text-2xl font-circus text-circus-tent">
+                  Heatmap — Coming Soon!
                 </h1>
               </div>
             </div>
