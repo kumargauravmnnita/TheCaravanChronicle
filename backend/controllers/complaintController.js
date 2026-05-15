@@ -1,6 +1,6 @@
 const Complaint = require("../models/Complaint");
 const expressAsyncHandler = require("express-async-handler");
-
+const { runEscalationCheck } = require("../utils/escalationService");
 const getSLADeadline = (priority) => {
   const hours = {
     Critical: 24,
@@ -264,6 +264,18 @@ const deleteComplaint = expressAsyncHandler(async (req, res) => {
   res.json({ message: "Complaint removed successfully" });
 });
 
+// @route   POST /api/complaints/escalate/run
+// @desc    Manually trigger escalation check (admin only)
+// @access  Private — admin
+
+const triggerEscalation = expressAsyncHandler(async (req, res) => {
+  const count = await runEscalationCheck();
+  res.json({
+    message: `Escalation check complete. ${count} complaints escalated.`,
+    escalated: count,
+  });
+});
+
 module.exports = {
   submitComplaint,
   getComplaints,
@@ -272,4 +284,5 @@ module.exports = {
   assignComplaint,
   getComplaintStats,
   deleteComplaint,
+  triggerEscalation,
 };

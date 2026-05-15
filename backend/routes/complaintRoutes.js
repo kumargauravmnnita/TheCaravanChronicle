@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const { triggerEscalation } = require("../controllers/complaintController");
 const {
   submitComplaint,
   getComplaints,
@@ -19,6 +19,7 @@ router.get("/stats", protect, authorize("staff", "admin"), getComplaintStats);
 router.post("/", protect, upload.array("images", 5), submitComplaint);
 
 router.get("/", protect, getComplaints);
+router.post("/escalate/run", protect, authorize("admin"), triggerEscalation);
 
 router.get("/:id", protect, getComplaintById);
 
