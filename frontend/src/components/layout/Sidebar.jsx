@@ -9,6 +9,7 @@ import {
   FiMap,
 } from "react-icons/fi";
 import useAuthStore from "../../store/authStore";
+import { FiGlobe } from "react-icons/fi";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { user } = useAuthStore();
@@ -92,6 +93,21 @@ const Sidebar = ({ isOpen, onClose }) => {
               {link.label}
             </NavLink>
           ))}
+          {/* Divider */}
+          <div className="border-t border-gray-100 my-2" />
+
+          {/* Public Portal link — visible to all roles */}
+          <a
+            href="/public"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm
+                       font-medium text-gray-600 hover:bg-circus-cream
+                       hover:text-circus-red transition-colors duration-150"
+          >
+            <FiGlobe className="text-base flex-shrink-0" />
+            Public Portal
+          </a>
         </nav>
 
         {/* Bottom tagline */}

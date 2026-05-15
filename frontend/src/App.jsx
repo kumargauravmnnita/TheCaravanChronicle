@@ -15,6 +15,10 @@ import AdminPanel from "./pages/admin/AdminPanel";
 
 import CircusLogo from "./components/common/CircusLogo";
 
+import PublicPortal from "./pages/PublicPortal";
+
+<Route path="/public" element={<PublicPortal />} />;
+
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { isAuthenticated, user } = useAuthStore();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
