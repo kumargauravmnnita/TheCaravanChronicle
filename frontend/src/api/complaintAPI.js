@@ -36,3 +36,8 @@ export const deleteComplaint = async (id) => {
   const response = await api.delete(`/complaints/${id}`);
   return response.data;
 };
+
+export const getPublicStats = async () => {
+  const response = await api.get("/complaints/public/stats");
+  return response.data;
+};
