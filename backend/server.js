@@ -6,11 +6,12 @@ const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middleware/errorMiddleware");
 const complaintRoutes = require("./routes/complaintRoutes");
 const userRoutes = require("./routes/userRoutes");
+const { startScheduler } = require("./utils/scheduler");
 
 const app = express();
 
 connectDB();
-
+startScheduler();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
