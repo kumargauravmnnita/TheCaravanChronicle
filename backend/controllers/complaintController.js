@@ -228,23 +228,67 @@ const getComplaintStats = expressAsyncHandler(async (req, res) => {
     { $group: { _id: "$category", count: { $sum: 1 } } },
   ]);
 
+  const priorityStats = await Complaint.aggregate([
+    { $group: { _id: "$priority", count: { $sum: 1 } } },
+  ]);
+
+  const areaStats = await Complaint.aggregate([
+    { $group: { _id: "$area", count: { $sum: 1 } } },
+  ]);
+
   const overdueCount = await Complaint.countDocuments({
     slaDeadline: { $lt: new Date() },
     status: { $nin: ["Resolved", "Closed"] },
   });
 
-  const totalComplaints = await Complaint.countDocuments();
+  const escalatedCount = await Complaint.countDocuments({
+    isEscalated: true,
+  });
 
+  const totalComplaints = await Complaint.countDocuments();
   const resolvedComplaints = await Complaint.countDocuments({
     status: "Resolved",
   });
+
+  const resolutionTimes = await Complaint.aggregate([
+    {
+      $match: {
+        status: "Resolved",
+        resolvedAt: { $exists: true },
+      },
+    },
+    {
+      $project: {
+        resolutionHours: {
+          $divide: [
+            { $subtract: ["$resolvedAt", "$createdAt"] },
+            1000 * 60 * 60,
+          ],
+        },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        avgHours: { $avg: "$resolutionHours" },
+      },
+    },
+  ]);
+
+  const avgResolutionHours = resolutionTimes[0]
+    ? Math.round(resolutionTimes[0].avgHours)
+    : 0;
 
   res.json({
     total: totalComplaints,
     resolved: resolvedComplaints,
     overdue: overdueCount,
+    escalated: escalatedCount,
+    avgResolutionHours,
     byStatus: statusStats,
     byCategory: categoryStats,
+    byPriority: priorityStats,
+    byArea: areaStats,
   });
 });
 
